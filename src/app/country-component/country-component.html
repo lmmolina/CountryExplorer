@@ -1,0 +1,23 @@
+<div class="content">
+  <div class="card">
+    <img
+      src="{{ pais.flags.png }}"
+      alt="Bandera de {{ pais.name }}"
+      class="flag"
+    />
+    <div class="name">{{ pais.name }}</div>
+    <div class="info">
+      <p><strong>Capital:</strong> {{ pais.capital }}</p>
+      <p><strong>Continente:</strong> {{ pais.region }}</p>
+      <p>
+        <strong>Idiomas:</strong>
+        @for (lenguage of pais.languages; track $index) { 
+            @if($index==0){
+                {{ lenguage.name }}} @else {, {{ lenguage.name }}
+            }
+        }
+      </p>
+      <p><strong>Población:</strong> {{ pais.name }}</p>
+    </div>
+  </div>
+</div>
