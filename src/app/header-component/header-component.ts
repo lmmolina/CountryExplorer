@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CountrysService } from '../countrys-service';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-header-component',
@@ -13,7 +13,7 @@ export class HeaderComponent implements OnInit {
   private nombres!: string[];
   sugerencias: string[] = [];
   busqueda: string = '';
-  constructor(private servicio: CountrysService) {}
+  constructor(private servicio: CountrysService, private route: Router) {}
   ngOnInit() {
     this.servicio.cargarPaises();
     this.nombres = this.servicio.listaNombrePaises();
@@ -30,5 +30,17 @@ export class HeaderComponent implements OnInit {
   Seleccionar(texto: string) {
     this.busqueda = texto;
     this.sugerencias = [];
+    this.route.navigate(['pais/' + texto]);
+  }
+  Buscar() {
+    let enc = this.nombres.find((nom) =>
+      nom.toLowerCase().includes(this.busqueda.toLowerCase())
+    );
+    if (enc == null) {
+      alert('Pais no encontrado.');
+    } else {
+      this.route.navigate(['pais/' + enc]);
+      
+    }
   }
 }

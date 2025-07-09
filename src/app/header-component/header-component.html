@@ -10,6 +10,7 @@
       placeholder="Buscar un país..."
       [(ngModel)]="busqueda"
       (input)="AutoCompletar()"
+      (keyup.enter)="Buscar()"
     />
     @if (sugerencias.length>0) {
     <div class="search-tips">
