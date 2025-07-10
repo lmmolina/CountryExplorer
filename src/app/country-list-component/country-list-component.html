@@ -2,11 +2,9 @@
   <div class="filters">
     <select [(ngModel)]="filtroContinente">
       <option value="">Selecciona un continente</option>
-      <option value="Europe">Europa</option>
-      <option value="Asia">Asia</option>
-      <option value="Africa">África</option>
-      <option value="Americas">América</option>
-      <option value="Oceania">Oceanía</option>
+      @for (cont of continentes; track $index) {
+      <option value="{{ cont }}">{{ cont }}</option>
+      }
     </select>
 
     <select [(ngModel)]="filtroIdioma">
@@ -25,7 +23,7 @@
       <img
         src="{{ flag.flags.png }}"
         alt="{{ flag.name }}"
-        (click)="enlazarPais(flag.name)"
+        (click)="enlazarPais(flag.name.common)"
       />
     </div>
     }

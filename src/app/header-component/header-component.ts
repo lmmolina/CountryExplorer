@@ -15,8 +15,9 @@ export class HeaderComponent implements OnInit {
   busqueda: string = '';
   constructor(private servicio: CountrysService, private route: Router) {}
   ngOnInit() {
-    this.servicio.cargarPaises();
-    this.nombres = this.servicio.listaNombrePaises();
+    this.servicio.listaNombrePaises().subscribe((data: string[]) => {
+      this.nombres = data;
+    });
   }
   AutoCompletar() {
     if (this.busqueda.length >= 3) {
@@ -40,7 +41,6 @@ export class HeaderComponent implements OnInit {
       alert('Pais no encontrado.');
     } else {
       this.route.navigate(['pais/' + enc]);
-      
     }
   }
 }

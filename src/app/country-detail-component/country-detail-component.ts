@@ -22,7 +22,9 @@ export class CountryDetailComponent {
   constructor(private servicio: CountrysService) {
     effect(() => {
       let name = this.nameComputed();
-      this.pais = this.servicio.getPais(name as string);
+      this.servicio.getPais(name as string).subscribe((data: Country) => {
+        this.pais = data;
+      });
     });
   }
 }

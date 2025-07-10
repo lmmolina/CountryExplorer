@@ -14,12 +14,15 @@ export class CountryListComponent implements OnInit {
   flags: Country[] = [];
   filtroContinente: string = '';
   filtroIdioma: string = '';
+  continentes!: string[];
 
   constructor(private servicio: CountrysService, private route: Router) {}
 
   ngOnInit(): void {
-    this.servicio.cargarPaises();
-    this.flags = this.servicio.getPaises();
+    this.servicio.getPaises().subscribe((data: Country[]) => {
+      this.flags = data;
+      this.continentes = Array.from(this.servicio.obtenerContinentes(data));
+    });
   }
 
   enlazarPais(pais: string) {
@@ -30,8 +33,7 @@ export class CountryListComponent implements OnInit {
     return this.flags.filter(
       (p) =>
         (!this.filtroContinente || p.region == this.filtroContinente) &&
-        (!this.filtroIdioma ||
-          p.languages.some((l) => l.name == this.filtroIdioma))
+        (!this.filtroIdioma || p.idioms.some((l) => l.key == this.filtroIdioma))
     );
   }
 }
